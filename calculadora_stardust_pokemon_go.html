@@ -85,7 +85,7 @@ tfoot td{font-weight:700;background:var(--card2)}
   .xp-bonus-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .control-block{width:100%}
 }
-</style>
+/* V0.03 visual Pokémon GO */.go-inline-icon{width:24px;height:24px;object-fit:contain;vertical-align:middle;margin-right:5px}.go-hero-icon{width:34px;height:34px;object-fit:contain;vertical-align:middle;margin-right:6px}.visual-select{position:relative;width:100%}.visual-select>button{width:100%;min-height:35px;background:#fff;color:var(--text);border:1px solid #d5c9e8;border-radius:7px;padding:5px 8px;box-shadow:none;display:flex;align-items:center;gap:7px;text-align:left;font-weight:400}.visual-select .vs-img{width:30px;height:30px;object-fit:contain}.visual-select .vs-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vs-menu{display:none;position:absolute;z-index:1000;min-width:230px;max-width:min(330px,85vw);max-height:310px;overflow:auto;background:#fff;border:1px solid var(--border);border-radius:9px;box-shadow:0 10px 28px #29204433;padding:4px}.visual-select.open .vs-menu{display:block}.vs-option{display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:7px;cursor:pointer;white-space:nowrap;font-size:13px}.vs-option:hover,.vs-option.active{background:var(--card2)}.vs-option img{width:34px;height:34px;object-fit:contain}.pokemon-floating-menu{position:fixed!important;z-index:99999!important;max-height:min(360px,55vh)!important;overflow:auto!important}.native-visual-source{position:absolute!important;opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important}.type-badges{display:flex;flex-wrap:wrap;gap:4px}.type-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 6px 2px 3px;border-radius:999px;background:var(--card2);border:1px solid var(--border);white-space:nowrap;font-size:11px}.type-icon-go{width:20px;height:20px;object-fit:contain}.lucky-egg-wrap{position:relative;display:inline-flex;align-items:center}.lucky-egg-wrap .go-inline-icon{margin:0}.lucky-x2{position:absolute;right:-5px;bottom:-4px;background:#7c3aed;color:#fff;font-size:8px;font-weight:900;padding:3px 4px;border-radius:999px;border:1px solid #fff}</style>
 </head>
 <body>
 <header class="sitebar">
@@ -97,7 +97,7 @@ tfoot td{font-weight:700;background:var(--card2)}
 
 <div class="container">
   <section class="hero">
-    <h1> ✨STARDUST</h1>
+    <h1><img class="go-hero-icon" src="https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Items/stardust_painted.png" alt="">STARDUST</h1>
     <div class="sub">Pokémon GO — calcule capturas, clima, eventos, Pedaço de Estrela e planeje sua meta de Poeira Estelar.</div>
   </section>
 
@@ -146,7 +146,7 @@ tfoot td{font-weight:700;background:var(--card2)}
 
     <label class="switch">
       <input id="piece" type="checkbox" checked onchange="calculate()">
-      ⭐ Pedaço de Estrela (+50%)
+      <img class="go-inline-icon" src="https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Items/starpiece.png" alt=""> Pedaço de Estrela (+50%)
     </label>
   </div>
 
@@ -254,7 +254,7 @@ tfoot td{font-weight:700;background:var(--card2)}
           </div>
           <label class="switch">
             <input id="xpLuckyEgg" type="checkbox" onchange="calculateXp()">
-            Lucky Egg (dobra o XP)
+            <span class="lucky-egg-wrap"><img class="go-inline-icon" src="https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Items/luckyegg.png" alt=""><span class="lucky-x2">×2</span></span>Lucky Egg (dobra o XP)
           </label>
         </div>
 
@@ -375,6 +375,7 @@ const pokemonData = [
   {name:"Morelull",dust:500,types:["Grama","Fada"]}
 ];
 
+const pokemonIds={"Audino":531,"Cloyster":91,"Shellder":90,"Chimecho":358,"Persian de Alola":53,"Starmie":121,"Vespiquen":416,"Garbodor":569,"Dragapult":887,"Hydrapple":1019,"Meowth de Alola":52,"Staryu":120,"Sableye":302,"Combee":415,"Trubbish":568,"Parasect":47,"Persian":53,"Breloom":286,"Amoonguss":591,"Shiinotic":756,"Paras":46,"Meowth":52,"Delibird":225,"Shroomish":285,"Foongus":590,"Morelull":755};const GO_BALL='https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Items/pokeball_sprite.png';const weatherIcons={sunny:'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Weather/weatherIcon_small_sunny.png',rainy:'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Weather/weatherIcon_small_rain.png',partly:'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Weather/weatherIcon_small_partlycloudy_day.png',cloudy:'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Weather/weatherIcon_small_cloudy.png',windy:'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Weather/weatherIcon_small_windy.png',snow:'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Weather/weatherIcon_small_snow.png',fog:'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Weather/weatherIcon_small_fog.png'};
 const weatherTypes = {
   none: [],
   sunny: ["Grama","Fogo","Terra"],
@@ -418,6 +419,7 @@ function optionList(selectedName=""){
     pokemonData.map(p => `<option value="${p.name}" ${p.name===selectedName?"selected":""}>${p.name} (${money(p.dust)})</option>`).join("");
 }
 
+function pokemonImage(n){if(!n||n==="Outro / comum")return GO_BALL;let id=pokemonIds[n];if(!id)return GO_BALL;if(n==="Persian de Alola")return'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Pokemon/pokemon_icon_053_61.png';if(n==="Meowth de Alola")return'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Pokemon/pokemon_icon_052_61.png';return'https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Pokemon/pokemon_icon_'+String(id).padStart(3,"0")+'_00.png'}const TYPE_ICONS={"Fada":"FAIRY","Psíquico":"PSYCHIC","Lutador":"FIGHTING","Pedra":"ROCK","Fogo":"FIRE","Aço":"STEEL","Água":"WATER","Voador":"FLYING","Fantasma":"GHOST","Grama":"GRASS","Inseto":"BUG","Terra":"GROUND","Gelo":"ICE","Noturno":"DARK","Dragão":"DRAGON","Normal":"NORMAL","Elétrico":"ELECTRIC","Venenoso":"POISON"};function renderTypes(ts){return ts.length?'<div class="type-badges">'+ts.map(t=>'<span class="type-badge"><img class="type-icon-go" src="https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Types/POKEMON_TYPE_'+TYPE_ICONS[t]+'.png" alt=""><span>'+t+'</span></span>').join("")+'</div>':"Personalizado"}function buildPokemonVisual(sel){const w=document.createElement("div");w.className="visual-select pokemon-visual";sel.classList.add("native-visual-source");sel.parentNode.insertBefore(w,sel);w.appendChild(sel);const b=document.createElement("button");b.type="button";w.appendChild(b);const m=document.createElement("div");m.className="vs-menu pokemon-floating-menu";document.body.appendChild(m);function close(){m.style.setProperty("display","none","important");w.classList.remove("open")}function pos(){let r=b.getBoundingClientRect(),vw=innerWidth,vh=innerHeight,ww=Math.min(Math.max(r.width,230),Math.min(330,vw-16));m.style.width=ww+"px";m.style.left=Math.max(8,Math.min(r.left,vw-ww-8))+"px";m.style.top=Math.min(r.bottom+4,vh-320)+"px";m.style.setProperty("display","block","important")}function draw(){let n=sel.value,p=getPokemon(n);b.innerHTML='<img class="vs-img" src="'+pokemonImage(n)+'"><span class="vs-label">'+(p?p.name+" ("+money(p.dust)+")":"Outro / comum (100)")+'</span><span>▼</span>';m.innerHTML=[{name:"Outro / comum",dust:100},...pokemonData].map(x=>'<div class="vs-option" data-name="'+x.name+'"><img src="'+pokemonImage(x.name)+'"><span>'+x.name+' ('+money(x.dust)+')</span></div>').join("");m.querySelectorAll(".vs-option").forEach(o=>o.onclick=e=>{e.stopPropagation();sel.value=o.dataset.name;syncPokemon(sel);draw();close()})}b.onclick=e=>{e.stopPropagation();w.classList.contains("open")?close():(w.classList.add("open"),pos())};w._closeVisual=close;draw()}function buildWeatherVisual(){const sel=document.getElementById("weather");if(!sel)return;const w=document.createElement("div");w.className="visual-select";sel.classList.add("native-visual-source");sel.parentNode.insertBefore(w,sel);w.appendChild(sel);const b=document.createElement("button");b.type="button";w.appendChild(b),m=document.createElement("div");m.className="vs-menu";w.appendChild(m);const L={none:"Sem bônus de clima",sunny:"Ensolarado / Limpo",rainy:"Chuvoso",partly:"Parcialmente nublado",cloudy:"Nublado",windy:"Ventando",snow:"Neve",fog:"Névoa"};function im(k){return k==="none"?GO_BALL:weatherIcons[k]}function draw(){let k=sel.value;b.innerHTML='<img class="vs-img" src="'+im(k)+'"><span class="vs-label">'+L[k]+'</span><span>▼</span>';m.innerHTML=Object.keys(L).map(x=>'<div class="vs-option" data-weather="'+x+'"><img src="'+im(x)+'"><span>'+L[x]+'</span></div>').join("");m.querySelectorAll(".vs-option").forEach(o=>o.onclick=()=>{sel.value=o.dataset.weather;syncWeatherBoosts();calculate();draw();w.classList.remove("open")})}b.onclick=e=>{e.stopPropagation();w.classList.toggle("open")};draw()}document.addEventListener("click",()=>document.querySelectorAll(".visual-select.open").forEach(x=>x._closeVisual?x._closeVisual():x.classList.remove("open")));
 function addRow(name="", qty=1, dust=100, manualWeather=null){
   const tr = document.createElement("tr");
   const pokemon = getPokemon(name);
@@ -442,7 +444,7 @@ function addRow(name="", qty=1, dust=100, manualWeather=null){
   `;
 
   tr.dataset.manualWeather = manualWeather === null ? "auto" : "manual";
-  document.getElementById("rows").appendChild(tr);
+  document.getElementById("rows").appendChild(tr);\n  tr.querySelector(".types").innerHTML=renderTypes(types); buildPokemonVisual(tr.querySelector(".pokemonSelect"));
 
   if(pokemon){
     tr.querySelector(".dust").value = pokemon.dust;
@@ -466,10 +468,10 @@ function syncPokemon(select){
 
   if(pokemon){
     tr.querySelector(".dust").value = pokemon.dust;
-    tr.querySelector(".types").textContent = pokemon.types.join(" / ");
+    tr.querySelector(".types").innerHTML = renderTypes(pokemon.types);
   }else{
     tr.querySelector(".dust").value = 100;
-    tr.querySelector(".types").textContent = "Personalizado";
+    tr.querySelector(".types").innerHTML = "Personalizado";
   }
 
   updateRowWeather(tr);
@@ -727,7 +729,7 @@ function restoreState(){
   }
 }
 
-if(!restoreState()){
+buildWeatherVisual();\nif(!restoreState()){
   addRow("Combee",10,750);
   addRow("Trubbish",5,750);
   addRow("",20,100);
